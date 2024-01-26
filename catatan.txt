@@ -1,0 +1,56 @@
+url : http://localhost
+
+adminer merupakan salah satu database manager, selain phpMyAdmin.
+//download adminer custom diawal dan exstrak pada file backend disini
+adminer custom: 
+https://github.com/pematon/adminer-custom
+https://www.adminer.org/
+
+set di env dulu :
+url & database
+
+install jetstream :
+jetstream.laravel.com
+install livewire
+
+npm install
+npm run build
+php artisan migrate
+// jika error php artisan migrate:fresh
+
+laravel data tables, berfungsi untuk lebih mudah dalam memanage data
+url: https://github.com/yajra/laravel-datatables
+2022, jika gabisa install composernya maka coba : composer require yajra/laravel-datatables-oracle:^9.21.2
+
+install extensi :
+auto close tag
+auto complete tag
+auto rename tag
+better align
+bracket lens
+DotENV
+Error Lens
+GitHub Theme
+GitLens
+Icon Fonts
+Laravel Extra Intellisense
+Laravel Goto View
+
+Laravel Model Snippets
+Laravel Snippets
+Material Icon Theme
+PHP DocBloker
+PHP Intelephense
+PHP Namespace Resolver
+
+hapalkan tentang 
+php artisan make:migration
+	- php artisan make:migration nama_class_database_php --create=nama_table_database
+ 	- php artisan make:migration nama_class_database_php --table=nama_table_database_yang_akan_disambungkan
+php artisan migrate
+
+php artisan make:model nama_model
+
+php artisan make:controller nama_controller
+
+pelajari Laravel Eloquent
