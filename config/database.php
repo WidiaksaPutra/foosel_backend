@@ -43,12 +43,12 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'laragon' => [
+        'mariadb' => [
             'driver' => 'mysql',
-            'url' => env('http://localhost'),
+            'url' => env('https://fooselwoodcraftbali.com'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'foosel-backend'),
+            'database' => env('DB_DATABASE', 'fooselwo_foosel-backend'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', '123456'),
             'unix_socket' => env('DB_SOCKET', ''),
