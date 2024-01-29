@@ -151,7 +151,6 @@ class ProductController extends Controller
 
             $token_product = Str::random(32).time();
             $nameImage = $request->email.Str::random(32).time().'.'.$request->image->extension();
-            // $request->image->move(public_path('images_cover'), $nameImage);
             $image = $request->file('image');
             $image->move(public_path('images_cover'), $nameImage);
             $fileImage = "/images_cover/".$nameImage;
