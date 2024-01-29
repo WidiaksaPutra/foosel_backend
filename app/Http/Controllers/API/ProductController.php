@@ -139,6 +139,7 @@ class ProductController extends Controller
     }
 
     public function insertProduct(Request $request){
+        // $request->image->move(public_path('storage\images\images_cover'), $nameImage);
         try {
             $request->validate([
                 'email' => ['string', 'email', 'max:255'],
@@ -151,7 +152,7 @@ class ProductController extends Controller
 
             $token_product = Str::random(32).time();
             $nameImage = $request->email.Str::random(32).time().'.'.$request->image->extension();
-            // $request->image->move(public_path('storage\images\images_cover'), $nameImage);
+            
             $image = $request->file('image');
             $image->move(public_path('storage\images\images_cover'), $nameImage);
             $fileImage = "/images_cover/".$nameImage;
@@ -161,7 +162,7 @@ class ProductController extends Controller
                 'name' => $request->name,
                 'price' => $request->price,
                 'categories_id' => $request->type,
-                'description'=> $request->description,
+                'description' => $request->description,
                 'url_image' => $fileImage,
             ]);
 
