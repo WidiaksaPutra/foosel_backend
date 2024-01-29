@@ -62,7 +62,7 @@ class ProductDetail extends Controller
             $imageOld = $request -> input('url_image');
             
             if($imageOld){
-                $pathGambarOld = 'storage/images' . $imageOld;
+                $pathGambarOld = $imageOld;
                 if (File::exists($pathGambarOld)) {
                     File::delete($pathGambarOld);
                 }
@@ -71,7 +71,7 @@ class ProductDetail extends Controller
             if ($token_id) {
                 $dataGalleries = ProductGalleries::where('token_id_product', $token_id) -> get();
                 foreach ($dataGalleries as $data) {
-                    $pathDataGalleries = 'storage/images' . $data->url;
+                    $pathDataGalleries = $data->url;
                     if (File::exists($pathDataGalleries)) {
                         File::delete($pathDataGalleries);
                     }
