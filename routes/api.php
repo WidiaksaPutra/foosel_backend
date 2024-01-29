@@ -27,6 +27,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('categories', [ProductCategoriesController::class, 'fetchCategories']);
     Route::get('detailGuest', [ProductDetail::class, 'fetchProductDetailGuest']);
     Route::delete('deleteTransaksi', [TransaksiController::class, 'deleteTransaksi']);
+    // Route::post('insertProduct', [ProductController::class, 'insertProduct']);
 });
 
 Route::middleware(['pembeli'])->group(function () {

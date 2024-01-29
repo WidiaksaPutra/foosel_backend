@@ -151,9 +151,9 @@ class ProductController extends Controller
 
             $token_product = Str::random(32).time();
             $nameImage = $request->email.Str::random(32).time().'.'.$request->image->extension();
-            // $request->image->move(public_path('storage\images\images_cover'), $nameImage);
+            // $request->image->move(public_path('images_cover'), $nameImage);
             $image = $request->file('image');
-            $image->move(public_path('storage\images\images_cover'), $nameImage);
+            $image->move(public_path('images_cover'), $nameImage);
             $fileImage = "/images_cover/".$nameImage;
             Product::create([
                 'token_id' => $token_product,
@@ -170,7 +170,7 @@ class ProductController extends Controller
                 foreach($images as $img){
                     $token_galleries = Str::random(32).time();
                     $nameImages = $request->email.Str::random(32).time().'.'.$img->getClientOriginalExtension();
-                    $img->move(public_path('storage\images\images_list'), $nameImages);
+                    $img->move(public_path('images_list'), $nameImages);
                     $fileImg = "/images_list/".$nameImages;
                     ProductGalleries::create([
                         'token_id_galleries' => $token_galleries,
@@ -244,7 +244,7 @@ class ProductController extends Controller
                     foreach($images as $img){
                         $token_galleries = Str::random(32).time();
                         $nameImages = $request->email.Str::random(32).time().'.'.$img->getClientOriginalExtension();
-                        $img->move(public_path('storage\images\images_list'), $nameImages);
+                        $img->move(public_path('images_list'), $nameImages);
                         $fileImg = "/images_list/".$nameImages;
                         ProductGalleries::create([
                             'token_id_galleries' => $token_galleries,
