@@ -27,19 +27,18 @@ Route::middleware(['guest'])->group(function () {
     Route::get('categories', [ProductCategoriesController::class, 'fetchCategories']);
     Route::get('detailGuest', [ProductDetail::class, 'fetchProductDetailGuest']);
     Route::delete('deleteTransaksi', [TransaksiController::class, 'deleteTransaksi']);
-    Route::post('insertProduct', [ProductController::class, 'insertProduct']);
 });
 
 Route::middleware(['pembeli'])->group(function () {
     Route::get('productsPembeli', [ProductController::class, 'fetchProductPembeli']);
     Route::get('detailPembeli', [ProductDetail::class, 'fetchProductDetailPembeli']);
-    Route::post('transaksi', [TransaksiController::class, 'insertTransaksi']);
+    Route::post('insertTransaksi', [TransaksiController::class, 'insertTransaksi']);
     Route::get('fetchTransaksiPembeli', [TransaksiController::class, 'fetchTransaksiPembeli']);
     // Route::delete('deleteTransaksi', [TransaksiController::class, 'deleteTransaksi']);
 });
 
 Route::middleware(['penjual'])->group(function () {
-    // Route::post('insertProduct', [ProductController::class, 'insertProduct']);
+    Route::post('insertProduct', [ProductController::class, 'insertProduct']);
     Route::delete('deleteProductDetail', [ProductDetail::class, 'deleteProductDetail']);
     Route::post('updateProduct', [ProductController::class, 'updateProduct']);
     Route::get('productsPenjual', [ProductController::class, 'fetchProductPenjual']);

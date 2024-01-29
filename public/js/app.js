@@ -5075,8 +5075,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     key: processfoosel.env.MIX_PUSHER_APP_KEY,
+//     cluster: processfoosel.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
 
@@ -22469,7 +22469,7 @@ Item.prototype.run = function () {
 };
 process.title = 'browser';
 process.browser = true;
-process.env = {};
+processfoosel.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
 process.versions = {};

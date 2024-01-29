@@ -43,7 +43,7 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'laragon' => [
+        'mysql_local' => [
             'driver' => 'mysql',
             'url' => env('http://localhost'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -63,14 +63,14 @@ return [
             ]) : [],
         ],
 
-        'mysql' => [
+        'mysql_server' => [
             'driver' => 'mysql',
-            'url' => env('http://localhost'),
+            'url' => env('https://www.fooselwoodcraftbali.com'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'foosel-backend'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', '123456'),
+            'database' => env('DB_DATABASE', 'fooselwo_foosel-backend'),
+            'username' => env('DB_USERNAME', 'fooselwo_widiaksa'),
+            'password' => env('DB_PASSWORD', 'IgustiNgurahAgungWidiaksaPutra'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
