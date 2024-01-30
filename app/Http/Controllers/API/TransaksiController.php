@@ -105,15 +105,15 @@ class TransaksiController extends Controller{
         $emailPenjual = $request -> input('email_penjual');
         $emailPembeli = $request -> input('email_pembeli');
         $transaksi = Transaction::with(['products', 'usersPembeli', 'category']);
-        if($token_id){
-            $transaksi->where('transactions_id', $token_id);
-        }
-        if($emailPenjual){
-            $transaksi->where('users_email_penjual', $emailPenjual);
-        }
-        if($emailPembeli){
-            $transaksi->where('users_email_pembeli', $emailPembeli);
-        }
+        // if($token_id){
+        //     $transaksi->where('transactions_id', $token_id);
+        // }
+        // if($emailPenjual){
+        //     $transaksi->where('users_email_penjual', $emailPenjual);
+        // }
+        // if($emailPembeli){
+        //     $transaksi->where('users_email_pembeli', $emailPembeli);
+        // }
         return ResponseFormatter::success(
             $transaksi->orderBy('created_at', 'DESC')->simplepaginate($limit),
             'data berhasil dipanggil'
