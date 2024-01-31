@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use App\Models\Product;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller{
     public function insertTransaksi(Request $request){
@@ -80,10 +81,13 @@ class TransaksiController extends Controller{
 
     public function fetchTransaksiPembeli(Request $request){
         $token_id = $request -> input('transactions_id');
-        $limit = $request -> input('limit');
         $emailPenjual = $request -> input('email_penjual');
         $emailPembeli = $request -> input('email_pembeli');
-        $transaksi = Transaction::with(['products', 'usersPenjual', 'category']);
+        $transaksi = DB::table('transaction')
+        ->leftJoin('products', 'transaction.products_id', '=', 'products.token_id')
+        ->leftJoin('users', 'transaction.users_email_penjual', '=', 'users.email')
+        ->leftJoin('product_categories', 'transaction.category_id', '=', 'product_categories.id')
+        ->orderBy('transaction.created_at', 'desc');
         if($token_id){
             $transaksi->where('transactions_id', $token_id);
         }
@@ -94,17 +98,10 @@ class TransaksiController extends Controller{
             $transaksi->where('users_email_pembeli', $emailPembeli);
         }
         return ResponseFormatter::success(
-            $transaksi->orderBy('created_at', 'DESC')->simplepaginate($limit),
+            $transaksi->get(),
             'data berhasil dipanggil'
         );
-    }
-
-    public function fetchTransaksiPenjual(Request $request){
-        $token_id = $request -> input('transactions_id');
-        $limit = $request -> input('limit');
-        $emailPenjual = $request -> input('email_penjual');
-        $emailPembeli = $request -> input('email_pembeli');
-        $transaksi = Transaction::with(['products', 'usersPembeli', 'category']);
+        // $transaksi = Transaction::with(['products', 'usersPenjual', 'category']);
         // if($token_id){
         //     $transaksi->where('transactions_id', $token_id);
         // }
@@ -114,8 +111,32 @@ class TransaksiController extends Controller{
         // if($emailPembeli){
         //     $transaksi->where('users_email_pembeli', $emailPembeli);
         // }
+        // return ResponseFormatter::success(
+        //     $transaksi->orderBy('created_at', 'DESC')->simplepaginate($limit),
+        //     'data berhasil dipanggil'
+        // );
+    }
+
+    public function fetchTransaksiPenjual(Request $request){
+        $token_id = $request -> input('transactions_id');
+        $emailPenjual = $request -> input('email_penjual');
+        $emailPembeli = $request -> input('email_pembeli');
+        $transaksi = DB::table('transaction')
+        ->leftJoin('products', 'transaction.products_id', '=', 'products.token_id')
+        ->leftJoin('users', 'transaction.users_email_pembeli', '=', 'users.email')
+        ->leftJoin('product_categories', 'transaction.category_id', '=', 'product_categories.id')
+        ->orderBy('transaction.created_at', 'desc');
+        if($token_id){
+            $transaksi->where('transactions_id', $token_id);
+        }
+        if($emailPenjual){
+            $transaksi->where('users_email_penjual', $emailPenjual);
+        }
+        if($emailPembeli){
+            $transaksi->where('users_email_pembeli', $emailPembeli);
+        }
         return ResponseFormatter::success(
-            $transaksi->orderBy('created_at', 'DESC')->simplepaginate($limit),
+            $transaksi->get(),
             'data berhasil dipanggil'
         );
     }
@@ -131,7 +152,6 @@ class TransaksiController extends Controller{
                 , 'delete product berhasil'
             );
         } catch (Exception $error) {
-            // return "gagal";
             return ResponseFormatter::error(
                 [
                     'message'=>'Something when wrong',
