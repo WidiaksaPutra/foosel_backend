@@ -87,6 +87,10 @@ class TransaksiController extends Controller{
         ->leftJoin('products', 'transaction.products_id', '=', 'products.token_id')
         ->leftJoin('users', 'transaction.users_email_penjual', '=', 'users.email')
         ->leftJoin('product_categories', 'transaction.category_id', '=', 'product_categories.id')
+        ->select('transaction.*'
+        ,'products.name as products_name', 'products.url_image as products_urlImage', 'products.price as product_price', 'products.description as products_description'
+        ,'product_categories.name as product_categories_name'
+        ,'users.name as users_name_penjual', 'users.username as users_username_penjual', 'users.phone as users_phone_penjual', 'users.roles as users_roles_penjual', 'users.alamat as users_alamat_penjual', 'users.profile_photo_path as users_photo_penjual')
         ->orderBy('transaction.created_at', 'desc');
         if($token_id){
             $transaksi->where('transactions_id', $token_id);
@@ -125,7 +129,12 @@ class TransaksiController extends Controller{
         ->leftJoin('products', 'transaction.products_id', '=', 'products.token_id')
         ->leftJoin('users', 'transaction.users_email_pembeli', '=', 'users.email')
         ->leftJoin('product_categories', 'transaction.category_id', '=', 'product_categories.id')
+        ->select('transaction.*'
+        ,'products.name as products_name', 'products.url_image as products_urlImage', 'products.price as product_price', 'products.description as products_description'
+        ,'product_categories.name as product_categories_name'
+        ,'users.name as users_name_pembeli', 'users.username as users_username_pembeli', 'users.phone as users_phone_pembeli', 'users.roles as users_roles_pembeli', 'users.alamat as users_alamat_pembeli','users.profile_photo_path as users_photo_pembeli')
         ->orderBy('transaction.created_at', 'desc');
+        
         if($token_id){
             $transaksi->where('transactions_id', $token_id);
         }
