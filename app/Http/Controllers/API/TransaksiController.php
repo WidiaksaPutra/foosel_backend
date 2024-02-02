@@ -83,6 +83,7 @@ class TransaksiController extends Controller{
         $token_id = $request -> input('transactions_id');
         $emailPenjual = $request -> input('email_penjual');
         $emailPembeli = $request -> input('email_pembeli');
+        
         $transaksi = DB::table('transaction')
         ->leftJoin('products', 'transaction.products_id', '=', 'products.token_id')
         ->leftJoin('users', 'transaction.users_email_penjual', '=', 'users.email')
@@ -92,6 +93,7 @@ class TransaksiController extends Controller{
         ,'product_categories.name as product_categories_name'
         ,'users.name as users_name_penjual', 'users.username as users_username_penjual', 'users.phone as users_phone_penjual', 'users.roles as users_roles_penjual', 'users.alamat as users_alamat_penjual', 'users.profile_photo_path as users_photo_penjual')
         ->orderBy('transaction.created_at', 'desc');
+        
         if($token_id){
             $transaksi->where('transactions_id', $token_id);
         }
@@ -101,6 +103,7 @@ class TransaksiController extends Controller{
         if($emailPembeli){
             $transaksi->where('users_email_pembeli', $emailPembeli);
         }
+        
         return ResponseFormatter::success(
             $transaksi->get(),
             'data berhasil dipanggil'
@@ -111,6 +114,7 @@ class TransaksiController extends Controller{
         $token_id = $request -> input('transactions_id');
         $emailPenjual = $request -> input('email_penjual');
         $emailPembeli = $request -> input('email_pembeli');
+        
         $transaksi = DB::table('transaction')
         ->leftJoin('products', 'transaction.products_id', '=', 'products.token_id')
         ->leftJoin('users', 'transaction.users_email_pembeli', '=', 'users.email')
@@ -120,6 +124,7 @@ class TransaksiController extends Controller{
         ,'product_categories.name as product_categories_name'
         ,'users.name as users_name_pembeli', 'users.username as users_username_pembeli', 'users.phone as users_phone_pembeli', 'users.roles as users_roles_pembeli', 'users.alamat as users_alamat_pembeli','users.profile_photo_path as users_photo_pembeli')
         ->orderBy('transaction.created_at', 'desc');
+        
         if($token_id){
             $transaksi->where('transactions_id', $token_id);
         }
@@ -129,6 +134,7 @@ class TransaksiController extends Controller{
         if($emailPembeli){
             $transaksi->where('users_email_pembeli', $emailPembeli);
         }
+        
         return ResponseFormatter::success(
             $transaksi->get(),
             'data berhasil dipanggil'
