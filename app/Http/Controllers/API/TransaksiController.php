@@ -139,7 +139,6 @@ class TransaksiController extends Controller{
         try {
             $token_transactions = $request->input('transactions_id');
             $token_products = $request->input('products_id');
-            
             if ($token_transactions) {
                 Transaction::where('transactions_id', $token_transactions)->forceDelete();
             }
