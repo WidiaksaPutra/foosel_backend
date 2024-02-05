@@ -137,9 +137,13 @@ class TransaksiController extends Controller{
 
     public function deleteTransaksi(Request $request){
         try {
-            $token_id = $request->input('transactions_id');
-            if ($token_id) {
-                Transaction::where('transactions_id', $token_id)->forceDelete();
+            $token_transactions = $request->input('transactions_id');
+            $token_products = $request->input('products_id');
+            if ($token_transactions) {
+                Transaction::where('transactions_id', $token_transactions)->forceDelete();
+            }
+            if($token_products) {
+                Transaction::where('products_id', $token_products)->forceDelete();
             }
             return ResponseFormatter::success(
                 null
