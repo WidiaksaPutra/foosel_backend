@@ -48,6 +48,7 @@ class UserController extends Controller{
                 $user = User::where('email', $request->email)->first();
                 $credentials = $request->only('email', 'password');
                 $token_user = auth()->attempt($credentials);
+                
                 return ResponseFormatter::success(
                     [
                         'access_token'=>$token_user,
