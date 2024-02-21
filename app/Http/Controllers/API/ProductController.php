@@ -206,7 +206,6 @@ class ProductController extends Controller
                 'oldImage' => ['string', 'max:255'],
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
-    
             if($request->hasFile('image')){
                 $pathGambarOld = $request->oldImage;
                 if (File::exists($pathGambarOld)) {
@@ -216,7 +215,6 @@ class ProductController extends Controller
                 $fileImage = "images_cover/" . strtolower($nameImage);
                 $request->file('image')->move(public_path('images_cover'), $nameImage);
             }
-            
             if($request->token_id){
                 Product::where('token_id', $request->token_id)->update([
                     'email' => $request->email,
@@ -251,7 +249,6 @@ class ProductController extends Controller
                     }
                 }
             }
-
             return ResponseFormatter::success(
                 'data berhasil diupdate',
             );
