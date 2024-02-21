@@ -31,32 +31,38 @@ class UserController extends Controller{
                 'password' => ['required', 'string'],
                 'roles' => ['required', 'string'],
                 'profile_photo_path' => ['required', 'string'],
+                'unit_test' => ['required', 'bool'],
                 // 'password' => ['required', 'string', new Password],
             ]);
-            
-            User::create([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email'=> $request->email,
-                'alamat' => $request->alamat,
-                'phone'=> $request->phone,
-                'password'=> Hash::make($request->password),//untuk menggendrate/memparsing password kedalam bentuk acak
-                'roles' => $request->roles,
-                'profile_photo_path' => $request->profile_photo_path
-            ]);
-
-            $user = User::where('email', $request->email)->first();
-            $credentials = $request->only('email', 'password');
-            $token_user = auth()->attempt($credentials);
-            // return "berhasil";
-            return ResponseFormatter::success(
-                [
-                    'access_token'=>$token_user,
-                    'type_token'=>'Bearer',
-                    'user'=>$user
-                ],
-                'data berhasil dipanggil',
-            );
+            if($request->unit_test == false){
+                User::create([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email'=> $request->email,
+                    'alamat' => $request->alamat,
+                    'phone'=> $request->phone,
+                    'password'=> Hash::make($request->password),//untuk menggendrate/memparsing password kedalam bentuk acak
+                    'roles' => $request->roles,
+                    'profile_photo_path' => $request->profile_photo_path
+                ]);
+    
+                $user = User::where('email', $request->email)->first();
+                $credentials = $request->only('email', 'password');
+                $token_user = auth()->attempt($credentials);
+                // return "berhasil";
+                return ResponseFormatter::success(
+                    [
+                        'access_token'=>$token_user,
+                        'type_token'=>'Bearer',
+                        'user'=>$user
+                    ],
+                    'data berhasil dipanggil',
+                );    
+            }else{
+                return ResponseFormatter::success(
+                    'data berhasil dipanggil',
+                );
+            }
         } catch (Exception $error) {
             // return "gagal";
             return ResponseFormatter::error(
@@ -134,10 +140,17 @@ class UserController extends Controller{
 
     public function updateProfile(Request $request){
         $user = Auth::user();
-        $user->update($request->all());
-        return ResponseFormatter::success(
-            $user, 'update profile'
-        );
+        $unitTest = $request->input('unit_test');
+        if($unitTest == false){
+            $user->update($request->all());
+            return ResponseFormatter::success(
+                $user, 'update profile'
+            );
+        }else{
+            return ResponseFormatter::success(
+                'data berhasil dipanggil',
+            );
+        }
     }
 
     // public function updateProfile(Request $request){

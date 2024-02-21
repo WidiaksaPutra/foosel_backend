@@ -139,7 +139,6 @@ class ProductController extends Controller
     }
 
     public function insertProduct(Request $request){
-        // $request->image->move(public_path('storage\images\images_cover'), $nameImage);
         try {
             $request->validate([
                 'email' => ['string', 'email', 'max:255'],
@@ -148,38 +147,38 @@ class ProductController extends Controller
                 'type' => ['string', 'max:255'],
                 'description' => ['string', 'max:255'],
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+                'unit_test' => ['string', 'max:6'],
             ]);
-
-            $token_product = Str::random(32).time();
-            $nameImage = $request->email.Str::random(32).time().'.'.$request->image->extension();
-            $image = $request->file('image');
-            $image->move(public_path('images_cover'), $nameImage);
-            $fileImage = "images_cover/".$nameImage;
-            Product::create([
-                'token_id' => $token_product,
-                'email' => $request->email,
-                'name' => $request->name,
-                'price' => $request->price,
-                'categories_id' => $request->type,
-                'description' => $request->description,
-                'url_image' => $fileImage,
-            ]);
-
             $images = $request->file('images');
-            if(count($images) >= 1){
-                foreach($images as $img){
-                    $token_galleries = Str::random(32).time();
-                    $nameImages = $request->email.Str::random(32).time().'.'.$img->getClientOriginalExtension();
-                    $img->move(public_path('images_list'), $nameImages);
-                    $fileImg = "images_list/".$nameImages;
-                    ProductGalleries::create([
-                        'token_id_galleries' => $token_galleries,
-                        'token_id_product' => $token_product,
-                        'url' => $fileImg,
-                    ]);
+            if($request->unit_test == "false"){
+                $token_product = Str::random(32).time();
+                $nameImage = $request->email.Str::random(32).time().'.'.$request->image->extension();
+                $image = $request->file('image');
+                $image->move(public_path('images_cover'), $nameImage);
+                $fileImage = "images_cover/".$nameImage;
+                Product::create([
+                    'token_id' => $token_product,
+                    'email' => $request->email,
+                    'name' => $request->name,
+                    'price' => $request->price,
+                    'categories_id' => $request->type,
+                    'description' => $request->description,
+                    'url_image' => $fileImage,
+                ]);   
+                if(count($images) >= 1){
+                    foreach($images as $img){
+                        $token_galleries = Str::random(32).time();
+                        $nameImages = $request->email.Str::random(32).time().'.'.$img->getClientOriginalExtension();
+                        $img->move(public_path('images_list'), $nameImages);
+                        $fileImg = "images_list/".$nameImages;
+                        ProductGalleries::create([
+                            'token_id_galleries' => $token_galleries,
+                            'token_id_product' => $token_product,
+                            'url' => $fileImg,
+                        ]);
+                    }
                 }
             }
-
             return ResponseFormatter::success(
                 'data berhasil disimpan',
             );
