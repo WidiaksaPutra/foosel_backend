@@ -150,7 +150,6 @@ class ProductController extends Controller
                 'unit_test' => ['string', 'max:6'],
             ]);
             $images = $request->file('images');
-            
             if($request->unit_test == "false"){
                 $token_product = Str::random(32).time();
                 $nameImage = $request->email.Str::random(32).time().'.'.$request->image->extension();
@@ -180,7 +179,6 @@ class ProductController extends Controller
                     }
                 }
             }
-            
             return ResponseFormatter::success(
                 'data berhasil disimpan',
             );
