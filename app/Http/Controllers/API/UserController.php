@@ -45,11 +45,9 @@ class UserController extends Controller{
                     'roles' => $request->roles,
                     'profile_photo_path' => $request->profile_photo_path
                 ]);
-    
                 $user = User::where('email', $request->email)->first();
                 $credentials = $request->only('email', 'password');
                 $token_user = auth()->attempt($credentials);
-                // return "berhasil";
                 return ResponseFormatter::success(
                     [
                         'access_token'=>$token_user,
