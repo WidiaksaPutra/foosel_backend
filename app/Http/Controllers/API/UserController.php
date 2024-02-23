@@ -80,8 +80,7 @@ class UserController extends Controller{
             $request->validate([
                 'email'=>'email|required',
                 'password'=>'required'
-             ]);
-             
+             ]);        
              $current = request(['email', 'password']);
              if(!Auth::attempt($current)){
                  return ResponseFormatter::error([
@@ -129,14 +128,12 @@ class UserController extends Controller{
             );
         }       
     }
-
     public function fetchProfil(Request $request){
         return ResponseFormatter::success(
             $request->user(), 
             'data profil user berhasil ditemukan'
         );
     }
-
     public function updateProfile(Request $request){
         $user = Auth::user();
         $unitTest = $request->input('unit_test');
@@ -151,7 +148,6 @@ class UserController extends Controller{
             );
         }
     }
-    
     public function logout(Request $request) {
         $unitTest = $request->input('unit_test');
         if($unitTest == "false"){
