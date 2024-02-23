@@ -205,11 +205,19 @@ class ProductController extends Controller
                 'description' => ['string', 'max:255'],
                 'oldImage' => ['string', 'max:255'],
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
-            ]);    
-            if($request->hasFile('image')){
-                $pathGambarOld = $request->oldImage;
-                if (File::exists($pathGambarOld)) {
-                    File::delete($pathGambarOld);
+                'unit_test' => ['string', 'max:6'],
+            ]);
+            
+            $images = $request->file('images');
+            if($request->token_id && $request->unit_test == false){
+                if($request->hasFile('image')){
+                    $pathGambarOld = $request->oldImage;
+                    if (File::exists($pathGambarOld)) {
+                        File::delete($pathGambarOld);
+                    }
+                    $nameImage = $request->email . Str::random(32) . time() . '.' . $request->image->extension();
+                    $fileImage = "images_cover/" . strtolower($nameImage);
+                    $request->file('image')->move(public_path('images_cover'), $nameImage);
                 }
                 $nameImage = $request->email . Str::random(32) . time() . '.' . $request->image->extension();
                 $fileImage = "images_cover/" . strtolower($nameImage);
