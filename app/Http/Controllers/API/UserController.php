@@ -177,8 +177,8 @@ class UserController extends Controller{
     public function logout(Request $request) {
         $unitTest = $request->input('unit_test');
         if($unitTest == false){
-            Auth::logout();
-            // $request->user()->currentAccessToken()->delete();   
+            // Auth::logout();
+            $request->user()->currentAccessToken()->delete();   
         }
         return ResponseFormatter::success(
             'berhasil logout'
