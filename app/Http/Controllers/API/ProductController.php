@@ -207,6 +207,7 @@ class ProductController extends Controller
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
                 'unit_test' => ['string', 'max:6'],
             ]);
+            
             $images = $request->file('images');
             if($request->token_id && $request->unit_test == false){
                 if($request->hasFile('image')){
