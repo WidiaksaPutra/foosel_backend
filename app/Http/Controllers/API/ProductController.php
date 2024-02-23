@@ -224,7 +224,6 @@ class ProductController extends Controller
                     'description'=> $request->description,
                     'url_image' => $fileImage ?? null,
                 ]);
-    
                 $dataGalleries = ProductGalleries::where('token_id_product', $request->token_id) -> get();
                 foreach ($dataGalleries as $data) {
                     $pathDataGalleries = $data->url;
@@ -248,7 +247,6 @@ class ProductController extends Controller
                     }
                 }
             }
-
             return ResponseFormatter::success(
                 'data berhasil diupdate',
             );
