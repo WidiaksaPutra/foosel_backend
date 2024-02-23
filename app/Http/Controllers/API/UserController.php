@@ -151,29 +151,6 @@ class UserController extends Controller{
             );
         }
     }
-
-    // public function updateProfile(Request $request){
-    //     $request->validate([
-    //         'name'=>['nullable','string', 'max:255'],
-    //         'username'=>['nullable', 'string', 'max:255', 'unique:users'],
-    //         'email'=>['nullable', 'string', 'email', 'max:255', 'unique:users'],
-    //         'phone'=>['nullable','string','max:255'],
-    //         'password'=>['nullable', 'string'],
-    //     ]);
-    //     $user = Auth::user();
-    //     $user->User::update([
-    //         'name'=>$request->name,
-    //         'username'=>$request->username,
-    //         'email'=>$request->email,
-    //         'phone'=>$request->phone,
-    //         'password'=>Hash::make($request->password),
-    //     ]);
-    //     return ResponseFormatter::success(
-    //         $user,
-    //         'update profile'
-    //     );
-    // }
-
     public function logout(Request $request) {
         $unitTest = $request->input('unit_test');
         if($unitTest == false){
@@ -188,7 +165,6 @@ class UserController extends Controller{
                 'berhasil logout'
             );
         }
-        
     }
 }
 
