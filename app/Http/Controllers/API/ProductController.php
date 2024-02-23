@@ -208,6 +208,7 @@ class ProductController extends Controller
                 'unit_test' => ['string', 'max:6'],
             ]);
             $images = $request->file('images');
+            
             if($request->token_id && $request->unit_test == false){
                 if($request->hasFile('image')){
                     $pathGambarOld = $request->oldImage;
