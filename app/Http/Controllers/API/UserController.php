@@ -151,20 +151,21 @@ class UserController extends Controller{
             );
         }
     }
+    
     public function logout(Request $request) {
         $unitTest = $request->input('unit_test');
-        if($unitTest == false){
-            $token = Auth::logout();
+        // if($unitTest == false){
+            // $token = Auth::logout();
             // $token = $request->user()->currentAccessToken()->delete();   
             return ResponseFormatter::success(
-                $token,
+                $unitTest,
                 'berhasil logout 1'
             );
-        }else{
-            return ResponseFormatter::success(
-                'berhasil logout 2'
-            );
-        }
+        // }else{
+        //     return ResponseFormatter::success(
+        //         'berhasil logout 2'
+        //     );
+        // }
     }
 }
 
