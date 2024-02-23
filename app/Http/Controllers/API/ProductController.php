@@ -207,7 +207,6 @@ class ProductController extends Controller
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
                 'unit_test' => ['string', 'max:6'],
             ]);
-            
             $images = $request->file('images');
             if($request->token_id && $request->unit_test == false){
                 if($request->hasFile('image')){
@@ -219,11 +218,6 @@ class ProductController extends Controller
                     $fileImage = "images_cover/" . strtolower($nameImage);
                     $request->file('image')->move(public_path('images_cover'), $nameImage);
                 }
-                $nameImage = $request->email . Str::random(32) . time() . '.' . $request->image->extension();
-                $fileImage = "images_cover/" . strtolower($nameImage);
-                $request->file('image')->move(public_path('images_cover'), $nameImage);
-            }
-            if($request->token_id){
                 Product::where('token_id', $request->token_id)->update([
                     'email' => $request->email,
                     'name' => $request->name,
@@ -240,7 +234,6 @@ class ProductController extends Controller
                     }
                 }
                 ProductGalleries::where('token_id_product', $request->token_id)->forceDelete();
-                $images = $request->file('images');
                 if(count($images) >= 1){
                     foreach($images as $img){
                         $token_galleries = Str::random(32).time();
