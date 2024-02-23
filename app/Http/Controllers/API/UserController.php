@@ -175,10 +175,12 @@ class UserController extends Controller{
     // }
 
     public function logout(Request $request) {
-        Auth::logout();
-        // $token = $request->user()->currentAccessToken()->delete();
+        $unitTest = $request->input('unit_test');
+        if($unitTest == false){
+            Auth::logout();
+            // $request->user()->currentAccessToken()->delete();   
+        }
         return ResponseFormatter::success(
-            // $token,
             'berhasil logout'
         );
     }

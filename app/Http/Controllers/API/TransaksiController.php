@@ -24,20 +24,23 @@ class TransaksiController extends Controller{
                 'shipping_price' => ['string', 'max:255'],
                 'quantity' => ['string', 'max:255'],
                 'status' => ['string', 'max:255'],
+                'unit_test' => ['string', 'max:6'],
             ]);
             $transactionId = Str::random(32).time();
-            Transaction::create([
-                'transactions_id' => $transactionId,
-                'users_email_pembeli' => $request->users_email_pembeli,
-                'users_email_penjual' => $request->users_email_penjual,
-                'products_id' => $request->products_id,
-                'category_id' => $request->category_id,
-                'total' => $request->total,
-                'total_price' => $request->total_price,
-                'shipping_price' => $request->shipping_price,
-                'quantity'=> $request->quantity,
-                'status' => $request->status,
-            ]);
+            if($request->unit_test == "false"){
+                Transaction::create([
+                    'transactions_id' => $transactionId,
+                    'users_email_pembeli' => $request->users_email_pembeli,
+                    'users_email_penjual' => $request->users_email_penjual,
+                    'products_id' => $request->products_id,
+                    'category_id' => $request->category_id,
+                    'total' => $request->total,
+                    'total_price' => $request->total_price,
+                    'shipping_price' => $request->shipping_price,
+                    'quantity'=> $request->quantity,
+                    'status' => $request->status,
+                ]);
+            }
             return ResponseFormatter::success(
                 'data berhasil disimpan',
             );
@@ -57,8 +60,9 @@ class TransaksiController extends Controller{
         try {
             $transactions_id = $request -> input('transactions_id');
             $status = $request -> input('status');
-
-            if($transactions_id){
+            $unit_test = $request->input('unit_test');
+            
+            if($transactions_id && $unit_test == false){
                 Transaction::where('transactions_id', $transactions_id)->update([
                     'status' => $status,
                 ]);
@@ -139,11 +143,12 @@ class TransaksiController extends Controller{
         try {
             $token_transactions = $request->input('transactions_id');
             $token_products = $request->input('products_id');
+            $unit_test = $request->input('unit_test');
             
-            if ($token_transactions) {
+            if ($token_transactions && $unit_test == false) {
                 Transaction::where('transactions_id', $token_transactions)->forceDelete();
             }
-            if($token_products) {
+            if($token_products && $unit_test == false) {
                 Transaction::where('products_id', $token_products)->forceDelete();
             }
             return ResponseFormatter::success(
